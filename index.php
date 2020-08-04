@@ -44,31 +44,28 @@
                 11 digits";
         }
         //data is valid so is submitted
-        else {
+        else{
                 //allow data to be submitted
                 let submit = document.querySelector("form");
                 submit.addEventListener("submit", event => {
-                event.click(); 
-            })
+                //submit form and refresh form after 3 seconds  
+                event.click(setTimeout( function () { location.reload(true); }, 5000))});
                 document.getElementById("valid").innerHTML = "Thank You " + "<strong>" + name.toUpperCase() + "<strong/>";
-                //refresh form after 3 seconds
-                setTimeout( function () { location.reload(true); }, 3000);
                 //clear cache after refresh
                 autocomplete = "off";
                 console.log("form submitted");
         }
 }
-    //clear form upon click event
-    const Clear = () => {
+        //clear form upon click event
+        const Clear = () => {
 
-        document.getElementById("valid").innerHTML = "";
-        document.getElementById("resetForm").reset();
+            document.getElementById("valid").innerHTML = "";
+            document.getElementById("resetForm").reset();
 }
 </script>
 <body>
     <?php
         include "insert.php";
-
         // Create connection
         $conn = new mysqli($servername, $username, $password, $db_name);
         // Check connection
@@ -78,7 +75,7 @@
         // Check if server is alive
         if ($conn -> ping()) {
             echo "Connection is ok! ";
-        } else {
+        }else {
             echo "Error: ". $conn -> error;
         }
 
@@ -106,7 +103,6 @@
             echo "Submission was not saved";
     }
 ?>
-
     <h1>COVID-19 Retracement</h1>
     <!--Send data to DB-->
     <form method="POST" action="index.php" id="resetForm" class="text-justify">
