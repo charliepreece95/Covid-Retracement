@@ -38,7 +38,7 @@ input[type=text], [type=number], select {
     align-items: center;  
 }
 
-button[type=button] {
+button[type=button], input[type=submit] {
     width: 15%;
     margin-right: 10px;
     margin-left:  10px;
