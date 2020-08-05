@@ -14,6 +14,8 @@
         //declare and get Id's from HTML 
         let name = document.getElementById("name").value;
         let number = document.getElementById("number").value;
+        //prevent cache
+        autocomplete = "off";
     
     //prevent form submitting with invalid data
     const noSubmit = () => {
@@ -22,7 +24,7 @@
 
         refuseSubmit.addEventListener("submit", event => {
             event.preventDefault();
-            console.log("form no submitted");
+            console.log("form not submitted");
         })
     };
         //name or number is blank
@@ -32,7 +34,7 @@
                cannot be blank";
         }
         //letters only
-        else if(!isNaN(name)) {  
+        else if(!isNaN(name)) {
                 noSubmit(); 
                 document.getElementById("valid").innerHTML = "Numbers not allowed in \
                 the name field";
@@ -44,15 +46,16 @@
                 11 digits";
         }
         //data is valid so is submitted
-        else{
+        else {
                 //allow data to be submitted
                 let submit = document.querySelector("form");
-                submit.addEventListener("submit", event => {
-                //submit form and refresh form after 3 seconds  
-                event.click(setTimeout( function () { location.reload(true); }, 5000))});
+                //submit form click event 
+                submit.addEventListener("submit", event => { 
+                event.submit();
+                });
+                //refresh page after 3 seconds (doesn't work)
+                setTimeout( function () { location.reload(true); }, 3000);
                 document.getElementById("valid").innerHTML = "Thank You " + "<strong>" + name.toUpperCase() + "<strong/>";
-                //clear cache after refresh
-                autocomplete = "off";
                 console.log("form submitted");
         }
 }
@@ -65,6 +68,7 @@
 </script>
 <body>
     <?php
+        //get db credentials
         include "insert.php";
         // Create connection
         $conn = new mysqli($servername, $username, $password, $db_name);
@@ -74,7 +78,7 @@
         }
         // Check if server is alive
         if ($conn -> ping()) {
-            echo "Connection is ok! ";
+            echo "Connection is ok! <br>";
         }else {
             echo "Error: ". $conn -> error;
         }
@@ -86,14 +90,14 @@
             $stmt = $conn->prepare("INSERT INTO user (fname, telephone) VALUES (?, ?)");
             //tell db it's parameters and datatypes
             $stmt->bind_param("sd", $fname, $telephone);
-
+            
             //align field data into a variable
             $fname = $_POST['_name'];
             $telephone = $_POST['_number'];
             //execute instruction and save to db
             $stmt->execute();
 
-            echo "Sucessfull submission";
+            echo "submission is saved";
 
             //close db connections
             $stmt->close();
@@ -117,7 +121,7 @@
         </div>
         <!--Submit button to DB-->
         <div class="flex-center">
-            <input type="submit" name="submit" id="btn" class="btn btn-success font-weight-bold" onclick='Submit()'>
+            <button type="submit" name="submit" id="btn" class="btn btn-success font-weight-bold" onclick='Submit()'>Submit</button>
             <button type="button" id="btnClear" class="btn btn-danger font-weight-bold" onclick="Clear()">Clear</button>
         </div>            
     </form>
