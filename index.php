@@ -78,7 +78,7 @@
         }
         // Check if server is alive
         if ($conn -> ping()) {
-            echo "Connection is ok! <br>";
+            //echo "Connection is ok! <br>";
         }else {
             echo "Error: ". $conn -> error;
         }
@@ -104,9 +104,10 @@
             $conn->close();
             
         }else {
-            echo "Submission was not saved";
+            //echo "Submission was not saved";
     }
 ?>
+    <h1>The Nags Head</h1>
     <h1>COVID-19 Retracement</h1>
     <!--Send data to DB-->
     <form method="POST" action="index.php" id="resetForm" class="text-justify">
@@ -123,7 +124,8 @@
         <div class="flex-center">
             <button type="submit" name="submit" id="btn" class="btn btn-success font-weight-bold" onclick='Submit()'>Submit</button>
             <button type="button" id="btnClear" class="btn btn-danger font-weight-bold" onclick="Clear()">Clear</button>
-        </div>            
+        </div>
+            <p class="disclaimer">Your information is deleted after 21 days.</p>            
     </form>
 </body>
 </html>

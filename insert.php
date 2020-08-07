@@ -1,6 +1,6 @@
 <?php
 //db access information (seperate file for security / still not secure enough for hosting)
-$servername = "127.0.0.1";
+$servername = "localhost";
 $username = "username";
 $password = "password";
 $db_name = "covid19_retracement";
